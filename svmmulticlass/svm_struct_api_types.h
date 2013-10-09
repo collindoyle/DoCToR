@@ -62,7 +62,7 @@ typedef struct pattern {
 typedef struct label {
   /* this defines the y-part (the label) of a training example,
      e.g. the parse tree of the corresponding sentence. */
-  int classlabel;       /* class label */
+  int class;       /* class label */
   int num_classes; /* total number of classes */
   double *scores;  /* value of linear function of each class */
 } LABEL;
