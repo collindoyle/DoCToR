@@ -12,7 +12,7 @@
 #include <iostream>
 extern "C"
 {
-#include "fitz.h"
+#include "mupdf/fitz.h"
 }
 /*
  The class of bounding box for every entity in the file.

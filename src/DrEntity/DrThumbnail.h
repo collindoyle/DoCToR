@@ -12,7 +12,7 @@
 #include <iostream>
 extern "C"
 {
-#include "fitz.h"
+#include "mupdf/fitz.h"
 }
 class DrThumbnail {
 public:
