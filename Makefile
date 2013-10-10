@@ -10,19 +10,19 @@ default: all
 all: mupdflib svmlib Entity Extractor Analyzer
 
 mupdflib:
-	cd mupdf; make third libs
+	cd mupdf; make third libs;
 	
 svmlib:
-	cd svmmulticlass; make
+	cd svmmulticlass; make ;
 	
 Entity:
-	cd DrEntity; make
+	cd src/DrEntity; make ;
 	
 Extractor:
-	cd DrExtractor; make
+	cd src/DrExtractor; make ;
 	
 Analyzer:
-	cd DrAnalyzer; make
+	cd src/DrAnalyzer; make ;
 	
 clean:
 	cd mupdf; make clean

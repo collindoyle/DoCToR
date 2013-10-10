@@ -48,7 +48,7 @@ default: all
 
 all: lib
 
-lib: $(ENTITY_TARGET)
+lib: $(ENTITY_OBJS)
 	ar rc $(OUT)/$(ENTITY_TARGET) $(ENTITY_OBJS) $(PROJECT_ROOT)mupdf/build/$(build)/libmupdf.a
 	rm *.o
 
