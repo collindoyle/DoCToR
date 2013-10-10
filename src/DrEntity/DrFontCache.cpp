@@ -7,7 +7,7 @@
 //
 
 #include "DrFontCache.h"
-#include <cstring>
+#include <string.h>
 
 DrFontCache::DrFontCache():m_fontnamelist(), m_DrFontList()
 {

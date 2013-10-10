@@ -8,6 +8,7 @@
 
 #include "DrFontDescriptor.h"
 #include <cmath>
+#include <string.h>
 
 DrFontDescriptor::DrFontDescriptor(const char * name, float size, int fstyle)
 {
