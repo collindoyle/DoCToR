@@ -392,7 +392,8 @@ void DrXMLInterpreter::ConvertSource_Takasu(tinyxml2::XMLDocument &dstdoc, const
                 // convert child
                 DrBox bbox;
                 eDirection dir;
-                ConvertChild(pnewroot,dstdoc,p,srcencode,bbox,NULL,dir,eZoneLabel::NONE);
+				eZoneLabel templ = NONE;
+                ConvertChild(pnewroot,dstdoc,p,srcencode,bbox,NULL,dir, templ);
             }
         }
     }

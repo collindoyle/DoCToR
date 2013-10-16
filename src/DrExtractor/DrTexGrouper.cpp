@@ -238,7 +238,7 @@ void DrTextGrouper::LineClassification(std::list<DrLine *> &linelist)
 {
     for (std::list<DrLine *>::iterator itline = linelist.begin(); itline != linelist.end(); itline++) {
         if (itline == linelist.begin()) {
-            (*itline)->m_linetag = DrLine::eLineTag::STARTLINE;
+            (*itline)->m_linetag = DrLine::STARTLINE;
             continue;
         }
         else

@@ -6,7 +6,7 @@ PROJECT_ROOT := ../../
 
 OUT := $(PROJECT_ROOT)build/$(build)
 
-CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include -m64
+CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include -m64 -std=c++0x
 
 LIBS := -l$(PROJECT_ROOT)mupdf/build/$(build)/libmupdf -lm
 
@@ -58,4 +58,4 @@ $(ENTITY_TARGET): $(ENTITY_OBJS)
 	$(CC) $(CFLAGS) -c $<  -o $@
 	
 clean:
-	rm -f *.o *.a
+	rm -f *.o *.a; rm -f $(OUT)/$(ENTITY_TARGET);

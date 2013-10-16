@@ -12,12 +12,12 @@
 #include <iostream>
 extern "C"
 {
-#include "fitz.h"
-#include "DrContentExtractor.h"
+#include "mupdf/fitz.h"
 }
 
 #include "DrDocument.h"
 #include "DrFontCache.h"
+
 class DrPDFExtractor {
     char * m_filename;
     bool m_isopen;
@@ -32,9 +32,8 @@ public:
     int OpenPDFFile(const char * filename);
     bool IsOpen();
     DrPage * ExtractPage(unsigned int pageno);
-    void ExtractChars(std::list<DrChar*> &charlist, extractlist *list);
-    void ExtractCharImp(std::list<DrChar*> &charlist, extractnode *textnode, float &x, float &y);
-    DrBox & Split_bbox(DrBox &bbox, int i, int n);
+    void ExtractChars(std::list<DrChar*> &charlist, fz_text_page * fpage);
+	DrBox & Split_bbox(DrBox &bbox, int i, int n);
     int GetPageCount();
 };
 #endif /* defined(__DrExtractor__DrPDFExtractor__) */
