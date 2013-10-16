@@ -377,7 +377,7 @@ void DrXMLInterpreter::ConvertSource_Takasu(tinyxml2::XMLDocument &dstdoc, const
         {
             // Create the root element for the new doc.
 
-            char * pfilename = strstr(srcfilename, ".conv");
+            const char * pfilename = strstr(srcfilename, ".conv");
             int len = pfilename - srcfilename;
             char * poutname = new char[len+9];
             strncpy(poutname, srcfilename, len);
