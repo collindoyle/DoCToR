@@ -33,7 +33,7 @@ double *optimize_qp(QP *, double *, long, double *, LEARN_PARM *);
    docs/label. The resulting model is returned in the structure
    model. */
 
-void svm_learn_classification(DOC **docs, double *class, long int
+void svm_learn_classification(DOC **docs, double *classlabel, long int
 			      totdoc, long int totwords, 
 			      LEARN_PARM *learn_parm, 
 			      KERNEL_PARM *kernel_parm, 
@@ -41,7 +41,7 @@ void svm_learn_classification(DOC **docs, double *class, long int
 			      MODEL *model,
 			      double *alpha)
      /* docs:        Training vectors (x-part) */
-     /* class:       Training labels (y-part, zero if test example for
+     /* classlabel:       Training labels (y-part, zero if test example for
                      transduction) */
      /* totdoc:      Number of examples in docs/label */
      /* totwords:    Number of features (i.e. highest feature index) */
@@ -149,18 +149,18 @@ void svm_learn_classification(DOC **docs, double *class, long int
     lin[i]=0;
     c[i]=0.0;
     unlabeled[i]=0;
-    if(class[i] == 0) {
+    if(classlabel[i] == 0) {
       unlabeled[i]=1;
       label[i]=0;
       transduction=1;
     }
-    if(class[i] > 0) {
+    if(classlabel[i] > 0) {
       learn_parm->svm_cost[i]=learn_parm->svm_c*learn_parm->svm_costratio*
 	docs[i]->costfactor;
       label[i]=1;
       trainpos++;
     }
-    else if(class[i] < 0) {
+    else if(classlabel[i] < 0) {
       learn_parm->svm_cost[i]=learn_parm->svm_c*docs[i]->costfactor;
       label[i]=-1;
       trainneg++;
@@ -488,7 +488,7 @@ void svm_learn_regression(DOC **docs, double *value, long int totdoc,
 			  KERNEL_PARM *kernel_parm, 
 			  KERNEL_CACHE **kernel_cache, MODEL *model)
      /* docs:        Training vectors (x-part) */
-     /* class:       Training value (y-part) */
+     /* classlabel:       Training value (y-part) */
      /* totdoc:      Number of examples in docs/label */
      /* totwords:    Number of features (i.e. highest feature index) */
      /* learn_parm:  Learning paramenters */

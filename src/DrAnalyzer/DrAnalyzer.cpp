@@ -11,6 +11,10 @@
 #include <iostream>
 #include <map>
 
+extern "C"
+{
+#include "svm_struct_api.h"
+}
 
 
 
@@ -195,15 +199,15 @@ void DrAnalyzer::CalculateAttributes(DrPage &page, const char * outputfilename)
         minalignaccum = minalignaccum < leftalign ? minalignaccum : leftalign;
         
         if (minalignaccum == leftalign) {
-            (*itzone)->m_attr->m_align = ealign::LEFT;
+            (*itzone)->m_attr->m_align = LEFT;
         }
         else if (minalignaccum == centeralign)
         {
-            (*itzone)->m_attr->m_align = ealign::CENTER;
+            (*itzone)->m_attr->m_align = CENTER;
         }
         else
         {
-            (*itzone)->m_attr->m_align = ealign::RIGHT;
+            (*itzone)->m_attr->m_align = RIGHT;
         }
         int maxcount = 0; float fontsize = 0.0;
         for(std::map<float, int>::iterator itmap = zonefontmap.begin(); itmap != zonefontmap.end(); itmap++)

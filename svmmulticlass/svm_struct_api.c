@@ -70,7 +70,7 @@ SAMPLE      read_struct_examples(char *file, STRUCT_LEARN_PARM *sparm)
     } 
   for(i=0;i<n;i++) {          /* copy docs over into new datastructure */
     examples[i].x.doc=docs[i];
-    examples[i].y.class=target[i]+0.1;
+    examples[i].y.classlabel=target[i]+0.1;
     examples[i].y.scores=NULL;
     examples[i].y.num_classes=num_classes;
   }
@@ -98,8 +98,8 @@ void        init_struct_model(SAMPLE sample, STRUCTMODEL *sm,
 
   sparm->num_classes=1;
   for(i=0;i<sample.n;i++)     /* find highest class label */
-    if(sparm->num_classes < (sample.examples[i].y.class+0.1)) 
-      sparm->num_classes=sample.examples[i].y.class+0.1;
+    if(sparm->num_classes < (sample.examples[i].y.classlabel+0.1)) 
+      sparm->num_classes=sample.examples[i].y.classlabel+0.1;
   for(i=0;i<sample.n;i++)     /* find highest feature number */
     for(w=sample.examples[i].x.doc->fvec->words;w->wnum;w++) 
       if(totwords < w->wnum) 
@@ -164,7 +164,7 @@ LABEL       classify_struct_example(PATTERN x, STRUCTMODEL *sm,
      recognized by the function empty_label(y). */
   LABEL y;
   DOC doc;
-  long class,bestclass=-1,first=1,j;
+  long classlabel,bestclass=-1,first=1,j;
   double score,bestscore=-1;
   WORD *words;
 
@@ -176,19 +176,19 @@ LABEL       classify_struct_example(PATTERN x, STRUCTMODEL *sm,
     if((words[j]).wnum>sparm->num_features) /* are not larger than in     */
       (words[j]).wnum=0;                    /* model. Remove feature if   */
   }                                         /* necessary.                 */
-  for(class=1;class<=sparm->num_classes;class++) {
-    y.class=class;
+  for(classlabel=1;classlabel<=sparm->num_classes;classlabel++) {
+    y.classlabel=classlabel;
     doc.fvec=psi(x,y,sm,sparm);
     score=classify_example(sm->svm_model,&doc);
     free_svector(doc.fvec);
-    y.scores[class]=score;
+    y.scores[classlabel]=score;
     if((bestscore<score)  || (first)) {
       bestscore=score;
-      bestclass=class;
+      bestclass=classlabel;
       first=0;
     }
   }
-  y.class=bestclass;
+  y.classlabel=bestclass;
   return(y);
 }
 
@@ -210,7 +210,7 @@ LABEL       find_most_violated_constraint_slackrescaling(PATTERN x, LABEL y,
      as recognized by the function empty_label(y). */
   LABEL ybar;
   DOC doc;
-  long class,bestclass=-1,first=1;
+  long classlabel,bestclass=-1,first=1;
   double score,score_y,score_ybar,bestscore=-1;
 
   /* NOTE: This function could be made much more efficient by not
@@ -222,21 +222,21 @@ LABEL       find_most_violated_constraint_slackrescaling(PATTERN x, LABEL y,
 
   ybar.scores=NULL;
   ybar.num_classes=sparm->num_classes;
-  for(class=1;class<=sparm->num_classes;class++) {
-    ybar.class=class;
+  for(classlabel=1;classlabel<=sparm->num_classes;classlabel++) {
+    ybar.classlabel=classlabel;
     doc.fvec=psi(x,ybar,sm,sparm);
     score_ybar=classify_example(sm->svm_model,&doc);
     free_svector(doc.fvec);
     score=loss(y,ybar,sparm)*(1.0-score_y+score_ybar);
     if((bestscore<score)  || (first)) {
       bestscore=score;
-      bestclass=class;
+      bestclass=classlabel;
       first=0;
     }
   }
   if(bestclass == -1) 
     printf("ERROR: Only one class\n");
-  ybar.class=bestclass;
+  ybar.classlabel=bestclass;
   if(struct_verbosity>=3)
     printf("[%ld:%.2f] ",bestclass,bestscore);
   return(ybar);
@@ -260,7 +260,7 @@ LABEL       find_most_violated_constraint_marginrescaling(PATTERN x, LABEL y,
      as recognized by the function empty_label(y). */
   LABEL ybar;
   DOC doc;
-  long class,bestclass=-1,first=1;
+  long classlabel,bestclass=-1,first=1;
   double score,bestscore=-1;
 
   /* NOTE: This function could be made much more efficient by not
@@ -268,21 +268,21 @@ LABEL       find_most_violated_constraint_marginrescaling(PATTERN x, LABEL y,
   doc=*(x.doc);
   ybar.scores=NULL;
   ybar.num_classes=sparm->num_classes;
-  for(class=1;class<=sparm->num_classes;class++) {
-    ybar.class=class;
+  for(classlabel=1;classlabel<=sparm->num_classes;classlabel++) {
+    ybar.classlabel=classlabel;
     doc.fvec=psi(x,ybar,sm,sparm);         
     score=classify_example(sm->svm_model,&doc);
     free_svector(doc.fvec);
     score+=loss(y,ybar,sparm);
     if((bestscore<score)  || (first)) {
       bestscore=score;
-      bestclass=class;
+      bestclass=classlabel;
       first=0;
     }
   }
   if(bestclass == -1) 
     printf("ERROR: Only one class\n");
-  ybar.class=bestclass;
+  ybar.classlabel=bestclass;
   if(struct_verbosity>=3)
     printf("[%ld:%.2f] ",bestclass,bestscore);
   return(ybar);
@@ -294,7 +294,7 @@ int         empty_label(LABEL y)
      returned by find_most_violated_constraint_???(x, y, sm) if there
      is no incorrect label that can be found for x, or if it is unable
      to label x at all */
-  return(y.class<0.9);
+  return(y.classlabel<0.9);
 }
 
 SVECTOR     *psi(PATTERN x, LABEL y, STRUCTMODEL *sm,
@@ -314,11 +314,11 @@ SVECTOR     *psi(PATTERN x, LABEL y, STRUCTMODEL *sm,
   SVECTOR *fvec;
 
   /* shift the feature numbers to the position of weight vector of class y */
-  fvec=shift_s(x.doc->fvec,(y.class-1)*sparm->num_features);
+  fvec=shift_s(x.doc->fvec,(y.classlabel-1)*sparm->num_features);
 
   /* The following makes sure that the weight vectors for each class
      are treated separately when kernels are used . */
-  fvec->kernel_id=y.class;
+  fvec->kernel_id=y.classlabel;
 
   return(fvec);
 }
@@ -328,13 +328,13 @@ double      loss(LABEL y, LABEL ybar, STRUCT_LEARN_PARM *sparm)
   /* loss for correct label y and predicted label ybar. The loss for
      y==ybar has to be zero. sparm->loss_function is set with the -l option. */
   if(sparm->loss_function == 0) { /* type 0 loss: 0/1 loss */
-    if(y.class == ybar.class)     /* return 0, if y==ybar. return 100 else */
+    if(y.classlabel == ybar.classlabel)     /* return 0, if y==ybar. return 100 else */
       return(0);
     else
       return(100);
   }
   if(sparm->loss_function == 1) { /* type 1 loss: squared difference */
-    return((y.class-ybar.class)*(y.class-ybar.class));
+    return((y.classlabel-ybar.classlabel)*(y.classlabel-ybar.classlabel));
   }
   else {
     /* Put your code for different loss functions here. But then
@@ -540,7 +540,7 @@ void        write_label(FILE *fp, LABEL y)
 {
   /* Writes label y to file handle fp. */
   int i;
-  fprintf(fp,"%d",y.class);
+  fprintf(fp,"%d",y.classlabel);
   if(y.scores) 
     for(i=1;i<=y.num_classes;i++)
       fprintf(fp," %f",y.scores[i]);
