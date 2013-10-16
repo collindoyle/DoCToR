@@ -28,7 +28,7 @@ public:
     ~DrAnalyzer();
     void SetDocument(DrDocument* pdoc);
     void CalculateAttributes(DrPage & page, const char * outputfilename);
-	void Learn_SVM_Model(const char * modelfile, const);
+	//	void Learn_SVM_Model(const char * modelfile, const );
 };
 
 #endif /* defined(__DrAnalyzer__DrAnalyzer__) */
