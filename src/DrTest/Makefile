@@ -6,7 +6,7 @@ OUT := $(PROJECT_ROOT)build/$(build)
 SRC_ROOT := $(PROJECT_ROOT)src
 
 CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include \
-	-I$(SRC_ROOT)/DrEntity/ -I$(SRC_ROOT)/DrExtractor -I$(SRC_ROOT)/DrAnalyzer 
+	-I$(SRC_ROOT)/DrEntity -I$(SRC_ROOT)/DrExtractor -I$(SRC_ROOT)/DrAnalyzer
 	
 CXXFLAGS := $(CFLAGS)
 
