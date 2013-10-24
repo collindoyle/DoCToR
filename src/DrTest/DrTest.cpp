@@ -11,8 +11,11 @@ extern "C"
 {
 #include "mupdf/fitz.h"
 }
+#include "DrDocument.h"
 
-void main(int argc, void *argv[])
+int main(int argc, char **argv)
 {
+	DrDocument doc;
+	std::cout<<"it works."<<std::endl;
 	return 0;
 }

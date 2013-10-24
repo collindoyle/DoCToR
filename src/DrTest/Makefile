@@ -9,6 +9,8 @@ CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include \
 	-I$(SRC_ROOT)/DrEntity/ -I$(SRC_ROOT)/DrExtractor -I$(SRC_ROOT)/DrAnalyzer \
 	-m64
 	
+CXXFLAGS := $(CFLAGS)
+
 TARGET := $(OUT)/DrTest
 	
 SRC := DrTest.cpp
@@ -19,10 +21,14 @@ default: all
 
 all: $(TARGET) 
 
-$(TARGET) : DrTest.o DrTest.cpp
-	$(CC) -c -o DrTest DrTest.cpp
+$(TARGET) : DrTest.o
+	g++ -lm DrTest.o -o $(TARGET)  -L $(PROJECT_ROOT)mupdf/build/debug -lmupdf -lz -ljpeg -lopenjpeg -lcurl -lfreetype -ljbig2dec -L $(OUT) -ldrentity
 
+DrTest.o : DrTest.cpp
+	g++ $(CXXFLAGS) -c DrTest.cpp
 
 
 
 clean:
+	rm -rf *.o;
+	rm -rf $(TARGET)

@@ -12,9 +12,9 @@ OUT := $(PROJECT_ROOT)build/$(build)
 
 CFLAGS := -I../DrEntity/ -I../../svmmulticlass -I$(PROJECT_ROOT)/mupdf/include
 
-LIBS := $(OUT)/DrEntity.a 
+LIBS := $(OUT)/libdrentity.a 
 
-ANALYZER_TARGET := $(OUT)/DrAnalyzer.a
+ANALYZER_TARGET := $(OUT)/libdranalyzer.a
 
 ANALYZER_OBJS := DrAnalyzer.o
 

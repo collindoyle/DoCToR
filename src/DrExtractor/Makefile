@@ -5,7 +5,7 @@ build ?= debug
 PROJECT_ROOT := ../../
 OUT := $(PROJECT_ROOT)build/$(build)
 
-EXTRACTOR_TARGET := $(OUT)/DrExtractor.a
+EXTRACTOR_TARGET := $(OUT)/libdrextractor.a
 
 CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include -I$(PROJECT_ROOT)src/DrEntity \
 	-I$(PROJECT_ROOT)mupdf/thirdparty/freetype/include \
@@ -13,7 +13,7 @@ CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include -I$(PROJECT_ROOT)src/DrEntity
 	-m64
 
 LIBS := $(PROJECT_ROOT)mupdf/build/$(build)/libmupdf.a \
-	$(OUT)/DrEntity.a $(OUT)/tinyxml2.o
+	$(OUT)/libdrentity.a $(OUT)/tinyxml2.o
 	
 EXTRACTOR_SRC := \
 	DrPDFExtractor.cpp \

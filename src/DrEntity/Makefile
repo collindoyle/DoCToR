@@ -38,7 +38,7 @@ ENTITY_OBJS := \
 	DrPoint.o \
 	DrThumbnail.o \
 	
-ENTITY_TARGET := DrEntity.a
+ENTITY_TARGET := libdrentity.a
 
 
 
@@ -49,7 +49,7 @@ default: all
 all: lib
 
 lib: $(ENTITY_OBJS)
-	ar rc $(OUT)/$(ENTITY_TARGET) $(ENTITY_OBJS) $(PROJECT_ROOT)mupdf/build/$(build)/libmupdf.a
+	ar rc $(OUT)/$(ENTITY_TARGET) $(ENTITY_OBJS) 
 	rm *.o
 
 $(ENTITY_TARGET): $(ENTITY_OBJS)
