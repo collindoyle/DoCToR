@@ -12,7 +12,8 @@ CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include -I$(PROJECT_ROOT)src/DrEntity
 	-I$(PROJECT_ROOT)tinyxml2 \
 	-m64
 
-LIBS := $(PROJECT_ROOT)mupdf/build/$(build)/libmupdf.a \
+LIBS := $(PROJECT_ROOT)mupdf/build/$(build)/libmupdf.a 
+	\
 	$(OUT)/libdrentity.a $(OUT)/tinyxml2.o
 	
 EXTRACTOR_SRC := \
