@@ -22,10 +22,10 @@ default: all
 all: $(TARGET) 
 
 $(TARGET) : DrTest.o
-	$(CC) DrTest.o -o $(TARGET)  -L $(PROJECT_ROOT)mupdf/build/debug  -lmupdf -ljpeg -openjpeg -lz -lfreetype -L $(OUT) -ldrentity -lm
+	$(GCC) DrTest.o -o $(TARGET)  -L $(PROJECT_ROOT)mupdf/build/debug  -lmupdf -ljpeg -openjpeg -lz -lfreetype -L $(OUT) -ldrentity -lm
 
 DrTest.o : DrTest.cpp
-	$(CC) $(CXXFLAGS) -c DrTest.cpp
+	$(GCC) $(CXXFLAGS) -c DrTest.cpp
 
 
 
