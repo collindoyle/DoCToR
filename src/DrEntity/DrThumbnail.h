@@ -14,6 +14,7 @@ extern "C"
 {
 #include "mupdf/fitz.h"
 }
+
 class DrThumbnail {
 public:
     fz_pixmap * m_pixmap;
