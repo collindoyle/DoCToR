@@ -61,7 +61,7 @@ lib: $(ENTITY_OBJS)
 $(ENTITY_TARGET): $(ENTITY_OBJS)
 	
 .cpp.o:
-	$(GCC) $(CFLAGS) -c $<  -o $@
+	g++ $(CFLAGS) -c $<  -o $@
 	
 clean:
 	rm -f *.o *.a; rm -f $(OUT)/$(ENTITY_TARGET);
