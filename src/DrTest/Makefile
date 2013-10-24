@@ -22,7 +22,7 @@ default: all
 all: $(TARGET) 
 
 $(TARGET) : DrTest.o
-	g++ -lm DrTest.o -o $(TARGET)  -L $(PROJECT_ROOT)mupdf/build/debug -lmupdf -lz -ljpeg -lopenjpeg -lcurl -lfreetype -ljbig2dec -L $(OUT) -ldrentity
+	g++ -lm DrTest.o -o $(TARGET)  -L $(PROJECT_ROOT)mupdf/build/debug -lmupdf -lz -ljpeg -lopenjpeg -lfreetype -ljbig2dec -L $(OUT) -ldrentity
 
 DrTest.o : DrTest.cpp
 	g++ $(CXXFLAGS) -c DrTest.cpp
