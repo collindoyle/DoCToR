@@ -8,7 +8,13 @@ OUT := $(PROJECT_ROOT)build/$(build)
 
 CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include -m64 -std=c++0x
 
-MUPDFLIB := $(PROJECT_ROOT)/mupdf/build/$(build)
+MUPDFLIBPATH := $(PROJECT_ROOT)/mupdf/build/$(build)
+
+MUPDFLIBS := $(MUPDFLIBPATH)/libmupdf.a \
+	$(MUPDFLIBPATH)/libjpeg.a \
+	$(MUPDFLIBPATH)/libopenjpeg.a \
+	$(MUPDFLIBPATH)/libz.a \
+	$(MUPDFLIBPATH)/libfreetype.a
 
 ENTITY_SRC := \
 	DrAttributeList.cpp \
@@ -49,7 +55,7 @@ default: all
 all: lib
 
 lib: $(ENTITY_OBJS)
-	ar rc $(OUT)/$(ENTITY_TARGET) $(ENTITY_OBJS) -L$(MUPDFLIB) -lmupdf -ljpeg -lopenjpeg -lz -lfreetype
+	ar rc $(OUT)/$(ENTITY_TARGET) $(ENTITY_OBJS) $(MUPDFLIBS)
 	rm *.o
 
 $(ENTITY_TARGET): $(ENTITY_OBJS)
