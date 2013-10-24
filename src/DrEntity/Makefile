@@ -8,7 +8,6 @@ OUT := $(PROJECT_ROOT)build/$(build)
 
 CFLAGS := $(CFLAGS) -I$(PROJECT_ROOT)mupdf/include -m64 -std=c++0x
 
-LIBS := -l$(PROJECT_ROOT)mupdf/build/$(build)/libmupdf -lm
 
 ENTITY_SRC := \
 	DrAttributeList.cpp \
