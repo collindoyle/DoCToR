@@ -56,6 +56,7 @@ all: lib
 
 lib: $(ENTITY_OBJS)
 	ar rc $(OUT)/$(ENTITY_TARGET) $(ENTITY_OBJS) $(MUPDFLIBS)
+	ranlib $(OUT)/$(ENTITY_TARGET)
 	rm *.o
 
 $(ENTITY_TARGET): $(ENTITY_OBJS)
