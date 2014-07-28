@@ -192,7 +192,7 @@ void DrXMLInterpreter::ReadFrom(DrDocument &doc, const char *filename)
 
 void DrXMLInterpreter::Read(DrPage *drpage, tinyxml2::XMLElement *node)
 {
-    drpage->m_thumbnail = NULL;
+    //drpage->m_thumbnail = NULL;
     ReadBox(&(drpage->m_pagebox), node);
     drpage->m_pagenum = node->IntAttribute("pageno");
     std::list<DrLine *> linelist;

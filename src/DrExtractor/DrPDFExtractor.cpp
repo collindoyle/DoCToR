@@ -114,8 +114,8 @@ DrPage * DrPDFExtractor::ExtractPage(unsigned int pageno)
     ExtractChars(charlist,tpage);
     fz_free_device(cdev);
     
-    DrThumbnail * thumb = new DrThumbnail(m_ctx,pix,pageno);
-    dpage->m_thumbnail = thumb;
+	//    DrThumbnail * thumb = new DrThumbnail(m_ctx,pix,pageno);
+	//   dpage->m_thumbnail = thumb;
 
     
     DrTextGrouper::TextGroup(phraselist, charlist);
